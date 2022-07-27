@@ -1,0 +1,226 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Pacientes desafio",
+        "description": "API para o desafio de pacientes",
+        "termsOfService": "https://gist.github.com/zinaldo/8df21ed11cd5d294d19d42668929ca66",
+        "version": "1.0.0",
+        "contact": {
+            "email": "matheusvictorhenrique@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/paciente",
+            "description": "Api de paciente"
+        }
+    ],
+    "paths": {
+        "/new": {
+            "post": {
+                "summary": "Cadastro de pacientes",
+                "description": "Essa rota irá cadastrar os pacientes",
+                "tags": ["Paciente"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pacientes"
+                            },
+                            "examples": {
+                                "paciente": {
+                                    "value": {
+                                        "nome": "José mendonsa",
+                                        "endereco": "Rj",
+                                        "cartao": 1569723456
+                                    }
+                                },
+                                "paciente2": {
+                                    "value": {
+                                        "nome": "Maria machados",
+                                        "endereco": "MG",
+                                        "cartao": 123564789
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                 "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pacientes"
+                                    }
+                                 }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Paciente existente"
+                    },
+                    "404": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            }
+        },
+        "/all": {
+            "get": {
+                "summary": "Listagem de pacientes",
+                "description": "Essa rota irá listar os pacientes",
+                "tags": ["Paciente"],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "$ref": "#/components/schemas/Pacientes"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/find/{id}": {
+            "get": {
+                "summary": "Listagem de paciente pelo id",
+                "description": "Essa rota lista o paciente pelo id",
+                "tags":["Paciente"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Busca o paciente pelo seu id"
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Pacientes"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/altera/{id}": {
+            "put": {
+                "summary": "Altera paciente pelo id",
+                "description": "Essa rota altera o paciente pelo id",
+                "tags":["Paciente"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Altera o paciente pelo seu id"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pacientes"
+                            },
+                            "examples": {
+                                "paciente": {
+                                    "value": {
+                                        "nome": "Marcolina",
+                                        "endereco": "Pato de minas, MG",
+                                        "cartao": 1569733456
+                                    }
+                                },
+                                "paciente2": {
+                                    "value": {
+                                        "nome": "Manuel",
+                                        "endereco": "Recife, PE",
+                                        "cartao": 123545789
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Pacientes"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/{id}": {
+            "delete": {
+                "summary": "Remove o paciente pelo id",
+                "description": "Essa rota remove o paciente pelo id",
+                "tags":["Paciente"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Remove o paciente pelo seu id"
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Pacientes"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
+    "components": {
+        "schemas": {
+            "Pacientes": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "endereco": {
+                        "type": "string"
+                    },
+                    "cartao": {
+                        "type": "number"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
